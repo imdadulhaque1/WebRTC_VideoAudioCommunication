@@ -61,7 +61,7 @@
             navigator.mediaDevices.getUserMedia(mediaConstraints)
             .then(function(stream){
                 // Imdadul haque Preview
-                let imdadulPreview = $('#imdadulPreview');
+                let imdadulPreview = document.getElementsById('imdadulPreview')
                 imdadulPreview.srcObject = stream;
                 imdadulPreview.play();
 
@@ -72,7 +72,7 @@
 
                 call.on('stream', function(remoteStream){
                     // Raihan Preview
-                    let raihanPreview = $('#raihanPreview');
+                    let raihanPreview = document.getElementsById('raihanPreview');
                     raihanPreview.srcObject = remoteStream;
                     raihanPreview.play();
                 })

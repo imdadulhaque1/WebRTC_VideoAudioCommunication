@@ -63,7 +63,7 @@
                 navigator.mediaDevices.getUserMedia(mediaConstraints)
                 .then(function(stream){
                     // Raihan Preview
-                    let raihanPreview = $('#raihanPreview')
+                    let raihanPreview = document.getElementsById('raihanPreview')
                     raihanPreview.srcObject = stream;
                     raihanPreview.play();
 
