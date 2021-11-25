@@ -55,7 +55,36 @@
 
         })
 
-        
+        // Make Call
+        let mediaConstraints = {'video': true, 'audio': true}
+        $('#makeCall').on('click', function(){
+            navigator.mediaDevices.getUserMedia(mediaConstraints)
+            .then(function(stream){
+                // Imdadul haque Preview
+                let imdadulPreview = $('#imdadulPreview');
+                imdadulPreview.srcObject = stream;
+                imdadulPreview.play();
+
+
+                // catch Partner PeerID
+                let PartnerPeerID = $('#PartnerPeerID').val();
+                let call = peer.call(PartnerPeerID, stream);
+
+                call.on('stream', function(remoteStream){
+                    // Raihan Preview
+                    let raihanPreview = $('#raihanPreview');
+                    raihanPreview.srcObject = remoteStream;
+                    raihanPreview.play();
+                })
+
+
+
+
+            })
+            .catch(function(err){
+                alert(err);
+            })
+        })
         
     </script>
 </body>
