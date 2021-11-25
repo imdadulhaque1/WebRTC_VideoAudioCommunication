@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizanur Rahman Raihan</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+</head>
+<body>
+    
+    <div class="container">
+        <hr><p id="selfPeerID">Self Peer ID(Mizanur Rahman Raihan)</p><hr> <br>
+        <p class="text-primary" id="connectionStatus"> Connection Status: </p>
+        <div class="row">
+            <div class="col-md-8">
+                <input id="PartnerPeerID" type="text" placeholder="Partner Peer ID " class="form-control"> <br>
+                <button id="connectBtn" class="btn btn-primary" >Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 p-5 bg-light">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-5" >Message From IMDADUL HAQUE: <span id="receivedMsg"></span> </p>
+                <input id="msg" type="text" class="from-control m-2" placeholder="Message...."><br>
+                <button class="btn btn-primary m-2" id="sendBtn">Send to Imdadul</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/peerjs.min.js"></script>
+    <script>
+        // Create My Peer ID
+        let peer = new Peer();
+        peer.on('open', function(PeerID){
+            // console.log(PeerID)
+            $('#selfPeerID').html("Self Peer ID(Mizanur Rahman Raihan): "+PeerID)
+        })
+
+        $('#connectBtn').on('click', function(){
+            let PartnerPeerID = $('#PartnerPeerID').val();
+            
+            let conn = peer.connect(PartnerPeerID);
+            conn.on('open', function(){
+                $('#connectionStatus').html("Connection Status: YES");
+                ReceiveMessage();   //Execute the method
+            })
+
+        })
+        // Send Message from Mizanur Rahman Raihan
+        $('#sendBtn').on('click', function(){
+            let msg = $('#msg').val();
+            let PartnerPeerID = $('#PartnerPeerID').val();
+            
+            let conn = peer.connect(PartnerPeerID);
+            conn.on('open', function(){
+                conn.send(msg)
+            })
+        })
+
+        // message Receive from Imdadul Haque
+        function ReceiveMessage(){
+            peer.on('connection', function(conn){
+                conn.on('data', function(msg){
+                    $('#receivedMsg').html(msg)
+                })
+            })
+        }
+    </script>
+</body>
+</html>
