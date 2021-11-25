@@ -20,15 +20,7 @@
         </div>
     </div>
 
-    <div class="container mt-5 p-5 bg-light">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="mb-5" >Message From MIZANUR RAHMAN RAIHAN: <span id="receivedMsg"></span> </p>
-                <input id="msg" type="text" class="from-control m-2" placeholder="Message...."><br>
-                <button class="btn btn-primary m-2" id="sendBtn">Send to Raihan</button>
-            </div>
-        </div>
-    </div>
+    
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
@@ -46,31 +38,13 @@
             let conn = peer.connect(PartnerPeerID);
             conn.on('open', function(){
                 $('#connectionStatus').html("Connection Status: YES");
-                ReceiveMessage();   //Execute the method
+               
             })
 
         })
 
-        // Send Message from Imdadul Haque
-        $('#sendBtn').on('click', function(){
-            let msg = $('#msg').val();
-            let PartnerPeerID = $('#PartnerPeerID').val();
-            
-            let conn = peer.connect(PartnerPeerID);
-            conn.on('open', function(){
-                conn.send(msg)
-            })
-        })
-
-
-        // message Receive from Imdadul Haque
-        function ReceiveMessage(){
-            peer.on('connection', function(conn){
-                conn.on('data', function(msg){
-                    $('#receivedMsg').html(msg)
-                })
-            })
-        }
+        
+        
     </script>
 </body>
 </html>
