@@ -55,6 +55,33 @@
             })
 
         })
+
+        // Receive Call
+        let mediaConstraints = {'video': true, 'audio': true}
+        $('#receiveCall').on('click', function(){
+            peer.on('call', function(call){
+                navigator.mediaDevices.getUserMedia(mediaConstraints)
+                .then(function(stream){
+                    // Raihan Preview
+                    let raihanPreview = $('#raihanPreview')
+                    raihanPreview.srcObject = stream;
+                    raihanPreview.play();
+
+                    call.answer(stream);
+
+                    call.on('stream', function(remoteStream){   //remoteStream: this video come from Imdadul
+                        // Imdadul Haque Preview
+                        let imdadulPreview = $('#imdadulPreview')
+                        imdadulPreview.srcObject = remoteStream;
+                        imdadulPreview.play();
+                    })
+                })
+                .catch(function(err){
+                    alert(err)
+                })
+            })
+        })
+         
         
     </script>
 </body>
